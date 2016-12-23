@@ -54,8 +54,8 @@ public class GirlPresenterImpl extends BasePresenterImpl implements GirlPresente
     }
 
     @Override
-    public void unMySubscriber()
+    public void unSub()
     {
-        unMySubscriber();
+        unSubscribe();
     }
 }

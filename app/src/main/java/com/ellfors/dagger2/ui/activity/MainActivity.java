@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity implements GirlView
     {
         super.onDestroy();
         /* Destroy方法中取消RxJava订阅 */
-        girlPresenter.unMySubscriber();
+        girlPresenter.unSub();
     }
 
     @Override

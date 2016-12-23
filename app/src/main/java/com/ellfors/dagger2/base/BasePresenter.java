@@ -5,5 +5,5 @@ package com.ellfors.dagger2.base;
  */
 public interface BasePresenter
 {
-    void unMySubscriber();
+    void unSub();
 }
