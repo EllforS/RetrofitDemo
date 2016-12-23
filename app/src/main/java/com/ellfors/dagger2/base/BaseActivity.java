@@ -24,6 +24,7 @@ public abstract class BaseActivity extends ExBaseActivity
         super.onCreate(savedInstanceState);
         setContentView(getLayout());
         unbinder = ButterKnife.bind(this);
+        initInject();
         initEventAndData();
     }
 
@@ -55,6 +56,8 @@ public abstract class BaseActivity extends ExBaseActivity
         return new ActivityModule(this);
     }
 
+    /* 初始化注入 */
+    public abstract void initInject();
     /* 绑定布局 */
     public abstract int getLayout();
     /* 初始化事件和数据 */

@@ -1,6 +1,5 @@
 package com.ellfors.dagger2.presenter.impl;
 
-
 import com.ellfors.dagger2.base.BasePresenterImpl;
 import com.ellfors.dagger2.http.utils.ProgressSubscriber;
 import com.ellfors.dagger2.http.utils.RetrofitManager;
@@ -16,15 +15,13 @@ import javax.inject.Inject;
 
 import rx.Subscription;
 
-public class GirlPresenterImpl extends BasePresenterImpl implements GirlPresenter
+public class GirlPresenterImpl extends BasePresenterImpl<GirlView> implements GirlPresenter
 {
-    private GirlView girlView;
     private RetrofitManager manager;
 
     @Inject
-    public GirlPresenterImpl(GirlView girlView, RetrofitManager manager)
+    public GirlPresenterImpl(RetrofitManager manager)
     {
-        this.girlView = girlView;
         this.manager = manager;
     }
 
@@ -36,12 +33,12 @@ public class GirlPresenterImpl extends BasePresenterImpl implements GirlPresente
                 .getGirlList(10,1)
                 .compose(RxUtils.<List<Girl>>handleResult())
                 .compose(RxUtils.<List<Girl>>rxSchedulerHelper())
-                .subscribe(new ProgressSubscriber<List<Girl>>(girlView.getContext())
+                .subscribe(new ProgressSubscriber<List<Girl>>(mView.getContext())
                 {
                     @Override
                     public void onSuccess(List<Girl> girls)
                     {
-                        girlView.showList(girls);
+                        mView.showList(girls);
                     }
 
                     @Override
@@ -51,11 +48,5 @@ public class GirlPresenterImpl extends BasePresenterImpl implements GirlPresente
                     }
                 });
         addSubscribe(sub);
-    }
-
-    @Override
-    public void unSub()
-    {
-        unSubscribe();
     }
 }

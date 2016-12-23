@@ -15,6 +15,8 @@ import com.ellfors.extools.base.ExBaseViewHolder;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * 显示福利的Adapter
  */
@@ -23,6 +25,7 @@ public class MainRcvAdapter extends ExBaseRcvAdapter
     private Context context;
     private List<Girl> list;
 
+    @Inject
     public MainRcvAdapter(Context context, List<Girl> list)
     {
         super(false, false);

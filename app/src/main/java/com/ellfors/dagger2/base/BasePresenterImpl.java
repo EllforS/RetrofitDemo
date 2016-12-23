@@ -6,9 +6,10 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * 基于Rxjava的PresenterImpl基类
  */
-public class BasePresenterImpl
+public class BasePresenterImpl<T extends BaseView> implements BasePresenter<T>
 {
     public CompositeSubscription subscriptions;
+    public T mView;
 
     /* 绑定SubScriber */
     public void addSubscribe(Subscription sub)
@@ -25,5 +26,18 @@ public class BasePresenterImpl
     {
         if(subscriptions != null)
             subscriptions.unsubscribe();
+    }
+
+    @Override
+    public void attachView(T view)
+    {
+        this.mView = view;
+    }
+
+    @Override
+    public void detachView()
+    {
+        this.mView = null;
+        unSubscribe();
     }
 }

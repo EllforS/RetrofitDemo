@@ -6,7 +6,6 @@ import com.ellfors.dagger2.di.ActivityScope;
 import com.ellfors.dagger2.http.utils.RetrofitManager;
 import com.ellfors.dagger2.presenter.GirlPresenter;
 import com.ellfors.dagger2.presenter.impl.GirlPresenterImpl;
-import com.ellfors.dagger2.view.GirlView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,6 +31,6 @@ public class ActivityModule
     @ActivityScope
     GirlPresenter provideGirlPresenter(RetrofitManager manager)
     {
-        return new GirlPresenterImpl((GirlView) activity,manager);
+        return new GirlPresenterImpl(manager);
     }
 }

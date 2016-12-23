@@ -43,11 +43,16 @@ public class MainActivity extends BaseActivity implements GirlView
     }
 
     @Override
-    public void initEventAndData()
+    public void initInject()
     {
         /* 注入 */
         getActivityComponent().inject(this);
+        girlPresenter.attachView(this);
+    }
 
+    @Override
+    public void initEventAndData()
+    {
         /* ToolBar */
         mToolbar.setTitle("This is Title");
         mToolbar.setTitleTextColor(Color.WHITE);
@@ -62,7 +67,7 @@ public class MainActivity extends BaseActivity implements GirlView
     {
         super.onDestroy();
         /* Destroy方法中取消RxJava订阅 */
-        girlPresenter.unSub();
+        girlPresenter.detachView();
     }
 
     @Override
