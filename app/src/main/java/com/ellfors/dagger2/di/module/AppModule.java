@@ -1,6 +1,6 @@
 package com.ellfors.dagger2.di.module;
 
-import com.ellfors.dagger2.MyApplication;
+import com.ellfors.dagger2.app.MyApplication;
 import com.ellfors.dagger2.http.utils.RetrofitManager;
 
 import javax.inject.Singleton;

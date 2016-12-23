@@ -2,7 +2,7 @@ package com.ellfors.dagger2.base;
 
 import android.os.Bundle;
 
-import com.ellfors.dagger2.MyApplication;
+import com.ellfors.dagger2.app.MyApplication;
 import com.ellfors.dagger2.di.component.ActivityComponent;
 import com.ellfors.dagger2.di.component.DaggerActivityComponent;
 import com.ellfors.dagger2.di.module.ActivityModule;

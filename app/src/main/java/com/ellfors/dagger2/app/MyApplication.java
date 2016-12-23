@@ -1,4 +1,4 @@
-package com.ellfors.dagger2;
+package com.ellfors.dagger2.app;
 
 import com.ellfors.dagger2.di.component.AppComponent;
 import com.ellfors.dagger2.di.component.DaggerAppComponent;
