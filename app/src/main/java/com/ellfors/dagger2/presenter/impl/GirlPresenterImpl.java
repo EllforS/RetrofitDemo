@@ -5,8 +5,7 @@ import com.ellfors.dagger2.http.utils.ProgressSubscriber;
 import com.ellfors.dagger2.http.utils.RetrofitManager;
 import com.ellfors.dagger2.http.utils.RxUtils;
 import com.ellfors.dagger2.model.Girl;
-import com.ellfors.dagger2.presenter.GirlPresenter;
-import com.ellfors.dagger2.view.GirlView;
+import com.ellfors.dagger2.presenter.GirlContract;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import javax.inject.Inject;
 
 import rx.Subscription;
 
-public class GirlPresenterImpl extends BasePresenterImpl<GirlView> implements GirlPresenter
+public class GirlPresenterImpl extends BasePresenterImpl<GirlContract.View> implements GirlContract.Presenter
 {
     private RetrofitManager manager;
 

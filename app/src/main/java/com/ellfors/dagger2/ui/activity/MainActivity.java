@@ -10,9 +10,8 @@ import android.widget.Button;
 import com.ellfors.dagger2.R;
 import com.ellfors.dagger2.base.BaseActivity;
 import com.ellfors.dagger2.model.Girl;
-import com.ellfors.dagger2.presenter.GirlPresenter;
+import com.ellfors.dagger2.presenter.GirlContract;
 import com.ellfors.dagger2.ui.adapter.MainRcvAdapter;
-import com.ellfors.dagger2.view.GirlView;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ import butterknife.OnClick;
 /**
  * MVP + Dagger2 + RxJava + Retrofit 封装
  */
-public class MainActivity extends BaseActivity implements GirlView
+public class MainActivity extends BaseActivity implements GirlContract.View
 {
     @BindView(R.id.main_toolbar)
     Toolbar mToolbar;
@@ -34,7 +33,7 @@ public class MainActivity extends BaseActivity implements GirlView
     RecyclerView mRecyclerView;
 
     @Inject
-    GirlPresenter girlPresenter;
+    GirlContract.Presenter girlPresenter;
 
     @Override
     public int getLayout()
