@@ -5,7 +5,5 @@ package com.ellfors.dagger2.base;
  */
 public interface BaseView
 {
-    /**
-     * 共有的方法写在这里
-     */
+    void showError(String msg);
 }

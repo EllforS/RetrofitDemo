@@ -7,7 +7,6 @@ import com.ellfors.dagger2.http.utils.RxUtils;
 import com.ellfors.dagger2.model.Girl;
 import com.ellfors.dagger2.presenter.GirlPresenter;
 import com.ellfors.dagger2.view.GirlView;
-import com.ellfors.extools.utils.L;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class GirlPresenterImpl extends BasePresenterImpl<GirlView> implements Gi
                     @Override
                     public void onFailed(Throwable e)
                     {
-                        L.e("获取列表 Error = " + e.getMessage());
+                        mView.showError(e.getMessage());
                     }
                 });
         addSubscribe(sub);

@@ -92,6 +92,12 @@ public class MainActivity extends BaseActivity implements GirlView
         girlPresenter.getGirlList();
     }
 
+    @Override
+    public void showError(String msg)
+    {
+        showToast(msg);
+    }
+
 
     //----------------------------下面是笔记---------------------------------------------------------
 
