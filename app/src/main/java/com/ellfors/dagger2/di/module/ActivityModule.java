@@ -3,9 +3,6 @@ package com.ellfors.dagger2.di.module;
 import android.app.Activity;
 
 import com.ellfors.dagger2.di.ActivityScope;
-import com.ellfors.dagger2.http.utils.RetrofitManager;
-import com.ellfors.dagger2.presenter.GirlContract;
-import com.ellfors.dagger2.presenter.impl.GirlPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,12 +22,5 @@ public class ActivityModule
     Activity provideActivity()
     {
         return activity;
-    }
-
-    @Provides
-    @ActivityScope
-    GirlContract.Presenter provideGirlPresenter(RetrofitManager manager)
-    {
-        return new GirlPresenterImpl(manager);
     }
 }

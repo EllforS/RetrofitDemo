@@ -1,4 +1,4 @@
-package com.ellfors.dagger2.presenter;
+package com.ellfors.dagger2.presenter.contract;
 
 
 import android.content.Context;

@@ -5,7 +5,7 @@ import com.ellfors.dagger2.http.utils.ProgressSubscriber;
 import com.ellfors.dagger2.http.utils.RetrofitManager;
 import com.ellfors.dagger2.http.utils.RxUtils;
 import com.ellfors.dagger2.model.Girl;
-import com.ellfors.dagger2.presenter.GirlContract;
+import com.ellfors.dagger2.presenter.contract.GirlContract;
 
 import java.util.List;
 

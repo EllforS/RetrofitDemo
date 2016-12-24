@@ -10,7 +10,8 @@ import android.widget.Button;
 import com.ellfors.dagger2.R;
 import com.ellfors.dagger2.base.BaseActivity;
 import com.ellfors.dagger2.model.Girl;
-import com.ellfors.dagger2.presenter.GirlContract;
+import com.ellfors.dagger2.presenter.contract.GirlContract;
+import com.ellfors.dagger2.presenter.impl.GirlPresenterImpl;
 import com.ellfors.dagger2.ui.adapter.MainRcvAdapter;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class MainActivity extends BaseActivity implements GirlContract.View
     RecyclerView mRecyclerView;
 
     @Inject
-    GirlContract.Presenter girlPresenter;
+    GirlPresenterImpl girlPresenter;
 
     @Override
     public int getLayout()
