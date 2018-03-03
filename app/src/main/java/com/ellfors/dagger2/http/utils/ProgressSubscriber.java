@@ -6,30 +6,31 @@ import android.util.Log;
 import com.ellfors.dagger2.http.config.RetrofitConfig;
 import com.ellfors.extools.utils.ExAppUtils;
 
-import rx.Subscriber;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.FlowableSubscriber;
 
 
 /**
  * 自定义Subscriber
- *      判断ProgressDialog cancel、判断网络、自动显示与隐藏ProgressDialog
+ * 判断ProgressDialog cancel、判断网络、自动显示与隐藏ProgressDialog
  */
-public abstract class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener
+public abstract class ProgressSubscriber<T> implements FlowableSubscriber<T>, ProgressCancelListener
 {
     private Context mContext;
-
     private ProgressDialogHandler mProgressDialogHandler;
-
     private boolean isHasNet;
+    private Subscription mSubscription;
 
     public ProgressSubscriber(Context context)
     {
         this.mContext = context;
-        mProgressDialogHandler = new ProgressDialogHandler(context,this,true);
+        mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
     }
 
     private void showProgressDialog()
     {
-        if(mProgressDialogHandler != null)
+        if (mProgressDialogHandler != null)
         {
             mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
         }
@@ -50,35 +51,33 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
     @Override
     public void onProgressCancel()
     {
-        if (!this.isUnsubscribed())
-        {
-            this.unsubscribe();
-            Log.e(RetrofitConfig.TAG,RetrofitConfig.CANCEL_MESSAGE);
-        }
+        mSubscription.cancel();
+        Log.e(RetrofitConfig.TAG, RetrofitConfig.CANCEL_MESSAGE);
     }
 
     @Override
-    public void onStart()
+    public void onSubscribe(Subscription s)
     {
-        super.onStart();
-
-        if(ExAppUtils.CheckNetworkState(mContext))
+        mSubscription = s;
+        if (ExAppUtils.CheckNetworkState(mContext))
         {
             showProgressDialog();
             isHasNet = true;
         }
         else
         {
-            ExAppUtils.showToast(mContext,RetrofitConfig.NOT_INTERNET_MESSAGE);
+            ExAppUtils.showToast(mContext, RetrofitConfig.NOT_INTERNET_MESSAGE);
             isHasNet = false;
         }
+        //这个方法为向观察者发送的事件数量，不设置则观察者接受不到数据
+        s.request(Long.MAX_VALUE);
     }
 
     @Override
-    public void onCompleted()
+    public void onComplete()
     {
         dismissProgressDialog();
-        Log.e(RetrofitConfig.TAG,RetrofitConfig.COMPLETE_MESSAGE);
+        Log.e(RetrofitConfig.TAG, RetrofitConfig.COMPLETE_MESSAGE);
     }
 
     @Override
@@ -86,9 +85,9 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
     {
         dismissProgressDialog();
 
-        if(!isHasNet)
+        if (!isHasNet)
         {
-            ExAppUtils.showToast(mContext,RetrofitConfig.NOT_INTERNET_MESSAGE);
+            ExAppUtils.showToast(mContext, RetrofitConfig.NOT_INTERNET_MESSAGE);
             return;
         }
 
@@ -102,5 +101,6 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
     }
 
     public abstract void onSuccess(T t);
+
     public abstract void onFailed(Throwable e);
 }

@@ -1,19 +1,26 @@
 package com.ellfors.dagger2.http.utils;
 
-import rx.Subscriber;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.FlowableSubscriber;
 
 /**
  * 简单的Subscriber
  */
-public abstract class SimpleSubscriber<T> extends Subscriber<T>
+public abstract class SimpleSubscriber<T> implements FlowableSubscriber<T>
 {
+    private Subscription mSubscription;
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onSubscribe(Subscription s)
+    {
+        mSubscription = s;
+        s.request(Long.MAX_VALUE);
     }
 
     @Override
-    public void onCompleted() {
-
+    public void onComplete()
+    {
+        mSubscription.cancel();
     }
 }

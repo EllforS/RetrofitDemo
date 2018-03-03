@@ -1,6 +1,5 @@
 package com.ellfors.dagger2.http.utils;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
@@ -18,7 +17,7 @@ public class ProgressDialogHandler extends Handler
     public static final int SHOW_PROGRESS_DIALOG = 1;
     public static final int DISMISS_PROGRESS_DIALOG = 2;
 
-    private ProgressDialog pd;
+    private CustomProgressDialog mDialog;
 
     private Context context;
     private boolean cancelable;
@@ -34,16 +33,14 @@ public class ProgressDialogHandler extends Handler
 
     private void initProgressDialog()
     {
-        if (pd == null)
+        if (mDialog == null)
         {
-            pd = new ProgressDialog(context);
-            pd.setMessage(RetrofitConfig.PROGRESS_DIALOG_MESSAGE);
-
-            pd.setCancelable(cancelable);
-
+            mDialog = new CustomProgressDialog(context);
+            mDialog.setTipText(RetrofitConfig.PROGRESS_DIALOG_MESSAGE);
+            mDialog.setCancelable(cancelable);
             if (cancelable)
             {
-                pd.setOnCancelListener(new DialogInterface.OnCancelListener()
+                mDialog.setOnCancelListener(new DialogInterface.OnCancelListener()
                 {
                     @Override
                     public void onCancel(DialogInterface dialogInterface)
@@ -52,20 +49,19 @@ public class ProgressDialogHandler extends Handler
                     }
                 });
             }
-
-            if (!pd.isShowing())
+            if (!mDialog.isShowing())
             {
-                pd.show();
+                mDialog.show();
             }
         }
     }
 
     private void dismissProgressDialog()
     {
-        if (pd != null)
+        if (mDialog != null)
         {
-            pd.dismiss();
-            pd = null;
+            mDialog.dismiss();
+            mDialog = null;
         }
     }
 

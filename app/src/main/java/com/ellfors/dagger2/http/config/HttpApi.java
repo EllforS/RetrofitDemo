@@ -6,9 +6,9 @@ import com.ellfors.dagger2.model.Girl;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Retrofit 构造请求Service
@@ -25,7 +25,7 @@ public interface HttpApi {
      */
 
     @GET("/api/data/福利/{limit}/{page}")
-    Observable<BaseCallModel<List<Girl>>> getGirlList(
+    Flowable<BaseCallModel<List<Girl>>> getGirlList(
             @Path("limit") int limit,
             @Path("page") int page
     );

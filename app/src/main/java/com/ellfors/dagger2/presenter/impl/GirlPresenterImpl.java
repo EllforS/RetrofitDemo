@@ -11,8 +11,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscription;
-
 public class GirlPresenterImpl extends BasePresenterImpl<GirlContract.View> implements GirlContract.Presenter
 {
     private RetrofitManager manager;
@@ -26,9 +24,9 @@ public class GirlPresenterImpl extends BasePresenterImpl<GirlContract.View> impl
     @Override
     public void getGirlList()
     {
-        Subscription sub = manager
+        manager
                 .getGsonHttpApi()
-                .getGirlList(10,1)
+                .getGirlList(10, 1)
                 .compose(RxUtils.<List<Girl>>handleResult())
                 .compose(RxUtils.<List<Girl>>rxSchedulerHelper())
                 .subscribe(new ProgressSubscriber<List<Girl>>(mView.getContext())
@@ -45,6 +43,5 @@ public class GirlPresenterImpl extends BasePresenterImpl<GirlContract.View> impl
                         mView.showError(e.getMessage());
                     }
                 });
-        addSubscribe(sub);
     }
 }

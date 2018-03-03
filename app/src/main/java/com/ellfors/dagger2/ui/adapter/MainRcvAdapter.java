@@ -44,8 +44,7 @@ public class MainRcvAdapter extends ExBaseRcvAdapter
     {
         if(viewHolder instanceof ItemViewHolder)
         {
-            Glide
-                    .with(context)
+            Glide.with(context)
                     .load(list.get(i).getUrl())
                     .into(((ItemViewHolder) viewHolder).iv_item);
         }
