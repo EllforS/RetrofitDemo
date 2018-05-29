@@ -3,7 +3,7 @@ package com.ellfors.dagger2.http.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.ellfors.extools.utils.L;
+import com.ellfors.extools.utils.ExLoggerUtil;
 
 /**
  * 网络请求打印工具类
@@ -35,7 +35,7 @@ public class HttpLogUtil
         if (!filterType(message))
             return;
         if (message.substring(0, 1).equals("{"))
-            L.json(message);
+            ExLoggerUtil.json(message);
         else
             Log.i("AAA", message);
     }

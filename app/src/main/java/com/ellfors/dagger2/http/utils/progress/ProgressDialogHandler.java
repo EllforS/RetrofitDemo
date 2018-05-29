@@ -1,4 +1,4 @@
-package com.ellfors.dagger2.http.utils;
+package com.ellfors.dagger2.http.utils.progress;
 
 import android.content.Context;
 import android.content.DialogInterface;

@@ -1,10 +1,11 @@
-package com.ellfors.dagger2.http.utils;
+package com.ellfors.dagger2.http.utils.progress;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ellfors.dagger2.http.config.RetrofitConfig;
-import com.ellfors.extools.utils.ExAppUtils;
+import com.ellfors.extools.utils.ExViewUtil;
 
 import org.reactivestreams.Subscription;
 
@@ -59,14 +60,14 @@ public abstract class ProgressSubscriber<T> implements FlowableSubscriber<T>, Pr
     public void onSubscribe(Subscription s)
     {
         mSubscription = s;
-        if (ExAppUtils.CheckNetworkState(mContext))
+        if (ExViewUtil.CheckNetworkState(mContext))
         {
             showProgressDialog();
             isHasNet = true;
         }
         else
         {
-            ExAppUtils.showToast(mContext, RetrofitConfig.NOT_INTERNET_MESSAGE);
+            Toast.makeText(mContext, RetrofitConfig.NOT_INTERNET_MESSAGE, Toast.LENGTH_SHORT).show();
             isHasNet = false;
         }
         //这个方法为向观察者发送的事件数量，不设置则观察者接受不到数据
@@ -87,7 +88,7 @@ public abstract class ProgressSubscriber<T> implements FlowableSubscriber<T>, Pr
 
         if (!isHasNet)
         {
-            ExAppUtils.showToast(mContext, RetrofitConfig.NOT_INTERNET_MESSAGE);
+            Toast.makeText(mContext, RetrofitConfig.NOT_INTERNET_MESSAGE, Toast.LENGTH_SHORT).show();
             return;
         }
 

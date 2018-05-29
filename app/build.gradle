@@ -30,7 +30,7 @@ dependencies {
     //更新时间——————2018年3月3日15:18:27
 
     //MyTools
-    compile 'com.github.EllforS:ATools:v2.1.1'
+    compile 'com.github.EllforS:ATools:v3.0.1'
 
     //RecyclerView
     compile 'com.android.support:recyclerview-v7:24.2.1'

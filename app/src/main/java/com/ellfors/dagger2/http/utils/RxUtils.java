@@ -65,7 +65,7 @@ public class RxUtils
                                 可以根据不同的Error_code返回不同的Exception
                                 比如token过期，需要重新登录
                              */
-                            return Flowable.error(new Exception("这里是自定义Error"));
+                            return Flowable.error(new RxException(String.valueOf(tBaseCallModel.getMsg()), tBaseCallModel.getErrorCode()));
                         }
                     }
                 });
@@ -74,10 +74,56 @@ public class RxUtils
     }
 
     /**
+     * 统一返回结果处理 （直接返回BaseResponse，为某些需要Msg的接口提供）
+     */
+    public static <T> FlowableTransformer<BaseCallModel<T>, BaseCallModel<T>> handleBaseResult()
+    {
+        return new FlowableTransformer<BaseCallModel<T>, BaseCallModel<T>>()
+        {
+            @Override
+            public Publisher<BaseCallModel<T>> apply(Flowable<BaseCallModel<T>> upstream)
+            {
+                return upstream.flatMap(new Function<BaseCallModel<T>, Publisher<BaseCallModel<T>>>()
+                {
+                    @Override
+                    public Publisher<BaseCallModel<T>> apply(BaseCallModel<T> baseResponse) throws Exception
+                    {
+                        if (baseResponse.getErrorCode() == 0)
+                            return createData(baseResponse);
+                        else
+                            return Flowable.error(new RxException(baseResponse.getMsg(), baseResponse.getErrorCode()));
+                    }
+                });
+            }
+        };
+    }
+
+    /**
+     * 生成BaseResponse Observable
+     */
+    private static <T> Flowable<BaseCallModel<T>> createData(final BaseCallModel<T> response)
+    {
+        return Flowable.create(new FlowableOnSubscribe<BaseCallModel<T>>()
+        {
+            @Override
+            public void subscribe(FlowableEmitter<BaseCallModel<T>> emitter) throws Exception
+            {
+                try
+                {
+                    if (response != null)
+                        emitter.onNext(response);
+                    emitter.onComplete();
+                }
+                catch (Exception e)
+                {
+                    emitter.onError(e);
+                }
+            }
+        }, BackpressureStrategy.BUFFER);
+    }
+
+    /**
      * 生成Observable
-     *
-     * @param <T>
-     * @return
      */
     private static <T> Flowable<T> createData(final T t)
     {

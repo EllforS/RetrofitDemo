@@ -41,4 +41,16 @@ public class RetrofitConfig
      * 网络请求错误时的Log信息
      */
     public static final String ERROR_MESSAGE = "Retrofit Debug === ";
+    /**
+     * 超时异常
+     */
+    public static final int HTTP_TIME_OUT = -3;
+    /**
+     * 其他异常
+     */
+    public static final int HTTP_OTHER_ERROR = -2;
+    /**
+     * 无网络
+     */
+    public static final int HTTP_NET_ERROR = -1;
 }

@@ -1,4 +1,4 @@
-package com.ellfors.dagger2.http.utils;
+package com.ellfors.dagger2.http.utils.progress;
 
 /**
  * ProgressDialog cancel监听
